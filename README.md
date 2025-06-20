@@ -15,7 +15,7 @@ A high-performance, cost-effective email validation service designed for indie h
 This is a completely free and open source email validation API that never stores your data. Built to support solopreneurs and the developer community. Features include:
 - Zero data storage - your emails are never saved!
 - GDPR, CCPA, and PIPEDA compliant
-- No authentication required
+- API key authentication via the `apikey` header
 - No usage limits
 - Quick response times
 - Batch validation up to 100 emails
