@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"emailvalidator/internal/api"
+	"emailvalidator/internal/middleware"
 	"emailvalidator/internal/service"
 	"emailvalidator/pkg/monitoring"
 )
@@ -46,8 +47,9 @@ func main() {
 	apiMux.HandleFunc("/typo-suggestions", handler.HandleTypoSuggestions)
 	apiMux.HandleFunc("/status", handler.HandleStatus)
 
-	// Wrap API routes with monitoring
-	monitoredHandler := monitoring.MetricsMiddleware(apiMux)
+	// Wrap API routes with authentication and monitoring
+	authHandler := middleware.APIKeyMiddleware(apiMux)
+	monitoredHandler := monitoring.MetricsMiddleware(authHandler)
 	finalMux.Handle("/api/", http.StripPrefix("/api", monitoredHandler))
 
 	// Register metrics endpoint
